@@ -1,0 +1,20 @@
+fileFormatVersion: 2
+guid: dfa626ec51c71ee459295a6b30c522be
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - file: {instanceID: 0}
+  - brick: {fileID: 3594036888645889646, guid: 5dda964dd51df1648abcb6c39156c109, type: 3}
+  - wall: {fileID: 2095012297276750429, guid: e2912287f7ff0964781a3fde2c444ac3, type: 3}
+  - startpoint: {fileID: 924270365915043911, guid: 875f94efb55df2f4090d7e4a47dbba58, type: 3}
+  - endpoint: {fileID: 1741060380526185035, guid: f4ec881e892de894cadf9bb5f8d7ffc2, type: 3}
+  - unbrick: {fileID: 1079970130516537031, guid: 613d06074e6e3ae46809ec808792cc87, type: 3}
+  - changedir: {fileID: 6226657652086583157, guid: ceb8576ad4a70c14396487a04d9998f5, type: 3}
+  - unbrickcell: {fileID: 7618713964277008924, guid: cb2f50d2f05891b428671bfc93f8a91a, type: 3}
+  - unbrickcorner: {fileID: 2381253857687626894, guid: 0c037980aa4f83c4091390655d9ff70a, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
