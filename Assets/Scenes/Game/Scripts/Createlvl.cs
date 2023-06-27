@@ -15,24 +15,43 @@ public class Createlvl : MonoBehaviour
     [SerializeField] private GameObject changedir;
     [SerializeField] private GameObject unbrickcell;
     [SerializeField] private GameObject unbrickcorner;
-    public string Lvl;
-
+    [SerializeField] private Player player;
+    public string lvl;
 
     Vector3 start;
-    private void Awake()
+    public static Createlvl instance;
+    public static Createlvl Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Createlvl>();
+                if (instance == null)
+                {
+                    instance = new GameObject().AddComponent<Createlvl>();
+                }
+            }
+            return instance;
+        }
+
+
+
     }
-    // Update is called once per frame
-    void Start()
+    private void Start()
     {
-        
+          
+        if (Lvlmanager.Instance != null)
+        {
+            
+            lvl = Lvlmanager.Instance.Lvl;
+        }
         transform.position = Vector3.zero;
         var content = "";
         if (file == null)
-        {
-            TextAsset textasset = (TextAsset)Resources.Load("Text/"+Lvl);
-             content = textasset.text;
+        {          
+             TextAsset textasset = (TextAsset)Resources.Load("Text/" + lvl);
+             content = textasset.text;            
         }
         else
         {
@@ -106,22 +125,28 @@ public class Createlvl : MonoBehaviour
 
                         }
                         break;
-                    
+                    //startpoint
                     case "3":
                         {
                             //Start
                             Instantiate(startpoint, pos, transform.rotation, this.transform);
                             start = pos;
                             start.y += 0.15f;
+                           
+                                Instantiate(player, start, this.transform.rotation);
+                            Player.Instance.Oninit();
+                            
 
                         }
                         break;
+                        //endpoint
                     case "4":
                         {
-                            pos.y -= 0.7f;
+                            pos.y -= 1f;
                             Instantiate(endpoint, pos, transform.rotation, this.transform);
                         }
                         break;
+                        //unbrrickcell
                     case "5":
                         {
                             pos.y -= 0.5f;
@@ -132,6 +157,13 @@ public class Createlvl : MonoBehaviour
                         {
                             pos.y -= 0.7f;
                             Instantiate(unbrick, pos, transform.rotation, this.transform);
+                        }
+                        break;
+                    case "61":
+                        {
+                            pos.y -= 0.7f;
+                            Quaternion rot = Quaternion.Euler(0, 90, 0);
+                            Instantiate(unbrick, pos, rot, this.transform);
                         }
                         break;
                     case "70":
@@ -166,14 +198,9 @@ public class Createlvl : MonoBehaviour
                 }
             }
         }
-        if (startpoint != null)
-        {
-            if (Player.player != null)
-            {                
-                Player.player.Setpos(start);
-            }
-        }
+
 
 
     }
+
 }

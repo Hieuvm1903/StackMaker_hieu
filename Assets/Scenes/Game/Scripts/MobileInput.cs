@@ -18,8 +18,8 @@ public class MobileInput : MonoBehaviour
     {
          
         tap = swipeLeft = swipeRight = swipeDown = swipeUp = false;
-        if(Player.player != null)
-        if (Player.player.ismove == false)
+        if(Player.Instance != null)
+        if (Player.Instance.ismove == false)
         {
             //Input for mouse and Touch
             if (Input.GetMouseButtonDown(0))

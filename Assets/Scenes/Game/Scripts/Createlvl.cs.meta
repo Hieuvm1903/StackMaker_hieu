@@ -13,6 +13,7 @@ MonoImporter:
   - changedir: {fileID: 6226657652086583157, guid: ceb8576ad4a70c14396487a04d9998f5, type: 3}
   - unbrickcell: {fileID: 7618713964277008924, guid: cb2f50d2f05891b428671bfc93f8a91a, type: 3}
   - unbrickcorner: {fileID: 2381253857687626894, guid: 0c037980aa4f83c4091390655d9ff70a, type: 3}
+  - player: {fileID: 7206750472543356900, guid: f851dabfab97e234fbb56efe68722eab, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -12,32 +12,35 @@ public class Stack : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        
         if(other.tag == "Brick")
         {
             other.gameObject.tag = "Normal";
-            Player.player.Addbrick(other.gameObject);
+            Player.Instance.Addbrick(other.gameObject);
             other.gameObject.AddComponent<Stack>();
             //Destroy(this);
         }
+        
+
         if(other.tag == "Wall")
         {
             
-            Player.player.Stop();
-            Player.player.Centerx();
-            Player.player.Centerz();
+            Player.Instance.Stop();
+            Player.Instance.Centerx();
+            Player.Instance.Centerz();
 
         }
         if(other.tag == "Unbrickwall")
         {
-            if(Player.player.stacks > 0 )
+            if(Player.Instance.stacks > 0 )
             {
                 Destroy(other.gameObject);
             }
             else
             {
-                Player.player.Stop();
-                Player.player.Centerx();
-                Player.player.Centerz();
+                Player.Instance.Stop();
+                Player.Instance.Centerx();
+                Player.Instance.Centerz();
             }
 
         }

@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     private Vector2 startPos, endPos;
     public Vector3 targetPos;
     private bool istouch;
-
+    
     public float speed = 1.5f;
     private Rigidbody rb;
     public bool ismove = false;
@@ -29,6 +29,24 @@ public class Player : MonoBehaviour
         None
     };
     public Direct direct = Direct.None;
+    public static Player Instance
+    {
+        get
+        {
+            if (player == null)
+            {
+                player = FindObjectOfType<Player>();
+                if (player == null)
+                {
+                    player = new GameObject().AddComponent<Player>();
+                }
+            }
+            return player;
+        }
+
+
+
+    }
     void Update()
     {
         if (MobileInput.Instance != null)
@@ -60,6 +78,7 @@ public class Player : MonoBehaviour
             else if (!ismove)
             {                
                 direct = Direct.None;
+                Move(direct);
                 Centerx();
                 Centerz();
             }
@@ -134,13 +153,17 @@ public class Player : MonoBehaviour
             direct = Direct.None;
         }
     }
-    void Oninit()
+    public void Oninit()
     {
-        if (player == null)
-        { player = this; }
+        
         rb = GetComponent<Rigidbody>();
         bricks = 0;
         stacks = 0;
+        if (UImanager.instance != null)
+        {
+            UImanager.instance.stack(bricks);
+        }
+        //Setpos(Createlvl.Instance.startpoint.transform.position);
 
     }
     void Awake()
@@ -150,46 +173,77 @@ public class Player : MonoBehaviour
     public void Addbrick(GameObject brick)
     {
         bricks++;
+        if (UImanager.instance != null)
+        {
+           UImanager.instance.stack(bricks);
+        }
         stacks++;
         brick.transform.SetParent(foot.transform);
         Vector3 pos = stack.transform.localPosition;
         pos.y -= 0.1f;
         brick.transform.localPosition = pos;
         Vector3 playerpos = transform.position;
-        playerpos.y += 0.1f;
-        transform.position = playerpos;
+        Vector3 stackpos1 = this.stack.transform.position;
+    
         stack = brick;
         stack.GetComponent<BoxCollider>().isTrigger = false;
+        Vector3 stackpos2 = this.stack.transform.position;
+        playerpos.y += stackpos1.y - stackpos2.y;
+        transform.position = playerpos;
+
+
     }
     public void Checkunbrick()
     {
+
+        Vector3 raypos = this.stack.transform.position;
         
-            Debug.DrawRay(transform.position, Vector3.down * 3f, Color.red, 1f);
+        
+            Debug.DrawRay(raypos, Vector3.down * 3f, Color.red, 1f);
             RaycastHit hit;
             Stack stack = Removebrick();
-            if (Physics.Raycast(stack.transform.position, Vector3.down * 3f, out hit, 1f, layer))
+            
+            if (Physics.Raycast(raypos, Vector3.down * 3f, out hit, 1f, layer))
             {
-                if (hit.collider.tag == "Unbrick")
+            /*
+            if(hit.collider.tag == "Brick")
+            {
+            hit.collider.gameObject.tag = "Normal";
+            Addbrick(hit.collider.gameObject);
+            hit.collider.gameObject.AddComponent<Stack>();
+            }
+            
+            else 
+            */
+            if (hit.collider.tag == "Unbrick")
                 {
                     if (stacks > 0)
                     {
-                    stacks--;
-                        stack.transform.SetParent(hit.collider.transform);
+                     Vector3 stackpos1 = this.stack.transform.position;
+                    stacks--;                    
+                    stack.transform.SetParent(hit.collider.transform);
                         stack.transform.gameObject.tag = "Untagged";
                         Vector3 pos = new Vector3(0, 0.55f, 0);
                         stack.transform.localPosition = pos;
                         stack.Ondespawn();
                         Vector3 playerpos = transform.position;
-                        playerpos.y -= 0.1f;
-                        transform.position = playerpos;
+                        
                         this.stack = Removebrick().gameObject;
-                        hit.collider.tag = "Normal";
-                    }
+                    Vector3 stackpos2 = this.stack.transform.position;
+                    playerpos.y -= stackpos2.y - stackpos1.y;
+                    transform.position = playerpos;
+                    hit.collider.tag = "Normal";
+                    Debug.Log(this.stack.transform.position.y);
+                }
                     
                 }
                 else if(hit.collider.tag == "Endpoint")
                 {
                     Stop();
+                if(UImanager.instance != null)
+                {
+                    UImanager.instance.endgame();
+                }
                 }
             }
         
@@ -234,7 +288,7 @@ public class Player : MonoBehaviour
     }
     public void Stop()
     {
-        rb.velocity = Vector3.zero;
+        //rb.velocity = Vector3.zero;
         ismove = false;        
         direct = Direct.None;
     }
@@ -260,6 +314,7 @@ public class Player : MonoBehaviour
         }
      
     }
+
     public void Setpos(Vector3 pos)
     {
         transform.position = pos;

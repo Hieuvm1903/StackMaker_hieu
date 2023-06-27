@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1127119097675933349}
-  - component: {fileID: 3165450605838833310}
+  - component: {fileID: -6059082376259577708}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3165450605838833310
+--- !u!114 &-6059082376259577708
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,4 +49,9 @@ MonoBehaviour:
   wall: {fileID: 2095012297276750429, guid: e2912287f7ff0964781a3fde2c444ac3, type: 3}
   startpoint: {fileID: 924270365915043911, guid: 875f94efb55df2f4090d7e4a47dbba58, type: 3}
   endpoint: {fileID: 1741060380526185035, guid: f4ec881e892de894cadf9bb5f8d7ffc2, type: 3}
+  unbrick: {fileID: 1079970130516537031, guid: 613d06074e6e3ae46809ec808792cc87, type: 3}
   changedir: {fileID: 6226657652086583157, guid: ceb8576ad4a70c14396487a04d9998f5, type: 3}
+  unbrickcell: {fileID: 7618713964277008924, guid: cb2f50d2f05891b428671bfc93f8a91a, type: 3}
+  unbrickcorner: {fileID: 2381253857687626894, guid: 0c037980aa4f83c4091390655d9ff70a, type: 3}
+  player: {fileID: 7206750472543356900, guid: f851dabfab97e234fbb56efe68722eab, type: 3}
+  lvl: 
